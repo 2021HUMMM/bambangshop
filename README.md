@@ -78,6 +78,26 @@ This is the place for you to write reflections:
 
 #### Reflection Publisher-1
 
+1. **Do We Need an Interface (Trait) for Subscriber?**</br>
+
+In the Observer Pattern, the Subscriber (or Observer) is typically an interface (trait in Rust) because different concrete types can subscribe and react differently to updates. However, in BambangShop’s case, if all subscribers behave the same way and don’t require polymorphism, a single Subscriber struct is enough. If we anticipate multiple types of subscribers with different behaviors, then defining a trait like SubscriberTrait would be useful.
+
+2. **Is Vec Sufficient or Is DashMap Necessary?**</br>
+
+Since id in Program and url in Subscriber are unique identifiers, a Vec (list) is not the best choice because:
+
+- Searching in a Vec requires an O(n) linear scan, whereas a DashMap (or any HashMap) provides O(1) lookup time.
+
+- DashMap ensures uniqueness of url as a key, avoiding duplicates.
+
+Thus, DashMap (or at least a HashMap) is necessary here for efficient lookups and uniqueness enforcement.
+
+3. **Do We Still Need DashMap, or Can We Use a Singleton Instead?**</br>
+
+Rust enforces thread safety, so if we used a Singleton pattern with a normal HashMap, we would need manual locking mechanisms (e.g., Mutex<HashMap> or RwLock<HashMap>) to ensure safe concurrent access. DashMap already provides built-in thread safety without explicit locks, making it more efficient.
+
+So, while a Singleton can work, DashMap is a better choice in Rust for concurrent environments because it avoids the overhead of frequent locking and unlocking.
+
 #### Reflection Publisher-2
 
 #### Reflection Publisher-3
