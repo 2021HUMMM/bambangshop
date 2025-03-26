@@ -130,3 +130,27 @@ Features I find helpful:
 - Pre-request and Post-response Scripts (to automate API testing workflows).
 
 #### Reflection Publisher-3
+
+1. **Observer Pattern Variation Used**</br>
+
+In this case, the Push Model is used. The NotificationService.notify() method actively pushes notifications to all subscribers whenever an event occurs (e.g., product creation or promotion). The function subscriber.update(payload_clone) sends data directly to each subscriber.
+
+2. **Advantages & Disadvantages of Using Pull Model Instead**</br>
+
+If we used the Pull Model, subscribers would request updates from the publisher instead of receiving them automatically.
+
+- Advantages of Pull Model:
+    - Less network overhead if subscribers don’t need frequent updates.
+    - More control for subscribers, as they can decide when to fetch data.
+
+- Disadvantages of Pull Model (in this case):
+    - Delayed notifications—subscribers might not receive updates immediately.
+    - Inefficiency—subscribers may repeatedly check for updates even when there's nothing new.
+    - Higher database load—if many subscribers poll frequently, it increases the strain on the system.
+
+3. **Effect of Removing Multi-threading**</br>
+
+Without multi-threading, the notification process would block the main execution flow. This means:
+- Notifications would be sent one at a time, making the process slower.
+- If a subscriber takes too long to respond, the entire notification system would be delayed.
+- The system’s responsiveness would degrade, especially with many subscribers.
