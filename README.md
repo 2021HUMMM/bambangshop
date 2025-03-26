@@ -100,4 +100,33 @@ So, while a Singleton can work, DashMap is a better choice in Rust for concurren
 
 #### Reflection Publisher-2
 
+1. **Why separate “Service” and “Repository” from a Model?**</br>
+
+Separating Service and Repository from the Model follows the Separation of Concerns principle. The Repository layer manages data persistence (e.g., interacting with databases), while the Service layer handles business logic (e.g., processing data, applying rules). This separation makes the codebase more modular, testable, and scalable. If everything were inside the Model, it would become tightly coupled, making future changes or scaling difficult.
+
+2. **What happens if we only use the Model?**</br>
+
+If all functionalities (storage, business logic, and interactions) are packed inside the Model, the code will become monolithic and tightly coupled. For example, in the system involving Program, Subscriber, and Notification models:
+
+If Program needs to notify a subscriber, it would directly modify Subscriber and Notification, making dependency management hard.
+
+Any change in one model might require updating all related models.
+
+Testing would be harder, as testing business logic would require database interactions.
+Using Service and Repository layers allows independent handling of logic and storage, keeping the models clean and focused.
+
+3. **Postman Exploration and Its Benefits**</br>
+
+Postman is a great tool for testing APIs. It helps in:
+- Sending HTTP requests (GET, POST, PUT, DELETE) to test endpoints.
+- Managing request collections for easy API testing.
+- Viewing responses with status codes to debug API calls.
+- Automating tests with scripts to check response structures and correctness.
+
+Features I find helpful:
+
+- Environment Variables (for managing different setups: dev, test, production).
+- Mock Servers (to simulate API responses without backend changes).
+- Pre-request and Post-response Scripts (to automate API testing workflows).
+
 #### Reflection Publisher-3
